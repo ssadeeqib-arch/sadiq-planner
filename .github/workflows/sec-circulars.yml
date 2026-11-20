@@ -1,0 +1,34 @@
+name: Collect SEC circulars
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sec-circulars
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch the SEC feed
+        run: python scripts/fetch_sec.py
+      - name: Save changes
+        run: |
+          if [ -n "$(git status --porcelain data)" ]; then
+            git config user.name "sadiq-planner bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data
+            git commit -m "Update SEC circulars"
+            git push
+          fi
