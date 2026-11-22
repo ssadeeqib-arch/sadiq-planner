@@ -1,5 +1,5 @@
 /* Sadiq planner service worker — makes the app open quickly and work offline. */
-const VERSION = "sadiq-planner-v1.7.0";
+const VERSION = "sadiq-planner-v1.7.1";
 const SHELL = "sadiq-planner-" + VERSION;
 const PRECACHE = ["./", "index.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "icons/favicon-32.png", "icons/favicon-48.png", "icons/icon-96.png"];
 /** On a slow connection, don't wait longer than this for the newest version before opening the saved one. */
